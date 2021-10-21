@@ -51,7 +51,7 @@ code {
 textarea {
 	border: none;
 	resize: none;
-	background-color: #67d7cc;
+	background-color: transparent;
 }
 
 textarea:focus {
@@ -66,6 +66,20 @@ textarea:focus {
 }
 
 .save:hover {
+	background-color: #ededed;
+	cursor: pointer;
+}
+
+.bulk-delete {
+	background-color: #e1e1e1;
+	border: none;
+	border-radius: 15px;
+	padding: 5px 10px 5px 10px;
+	margin:  10px;
+	font-size:  1.3em;
+}
+
+.bulk-delete:hover {
 	background-color: #ededed;
 	cursor: pointer;
 }
@@ -87,25 +101,71 @@ textarea:focus {
 	justify-content: space-between;
 }
 
-.delete-icon {
+.note-dates {
+	display: flex;
+	flex-direction: column;
+}
+
+.note-icons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 50px;
+}
+
+.save-icon {
+	color:  grey;
+}
+
+.save-icon:hover {
 	cursor: pointer;
+	color: black;
+}
+
+.delete-icon {
+	color: grey;
+}
+
+.delete-icon:hover {
+	cursor: pointer;
+	color: black;
 }
 
 .search {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.5em;
+}
+
+.search-box {
 	display: flex;
 	align-items: center;
 	background-color: rgb(233, 233, 233);
 	border-radius: 10px;
 	padding: 5px;
-	margin-bottom: 1.5em;
+	width: calc(100% - 100px);
 }
 
-.search input {
+.search-box input {
 	border: none;
 	background-color: rgb(233, 233, 233);
 	width: 100%;
 }
 
-.search input:focus {
+.search-box input:focus {
 	outline: none;
+}
+
+.search-btn {
+	background-color: #e1e1e1;
+	border: none;
+	border-radius: 15px;
+	padding: 8px 10px;
+	width: 80px;
+}
+
+.search-btn:hover {
+	background-color: #ededed;
+	cursor: pointer;
 }

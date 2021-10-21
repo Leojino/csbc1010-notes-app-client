@@ -1,85 +1,98 @@
-import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
-import NotesList from './components/NotesList';
-import Search from './components/Search';
-import Header from './components/Header';
+import { MdDeleteForever } from 'react-icons/md'
+import { useState, useEffect } from 'react'
+import NotesList from './components/NotesList'
+import Search from './components/Search'
+import Header from './components/Header'
 
 const App = () => {
-	const [notes, setNotes] = useState([
-		{
-			id: nanoid(),
-			text: 'This is my first note!',
-			date: '15/04/2021',
-		},
-		{
-			id: nanoid(),
-			text: 'This is my second note!',
-			date: '21/04/2021',
-		},
-		{
-			id: nanoid(),
-			text: 'This is my third note!',
-			date: '28/04/2021',
-		},
-		{
-			id: nanoid(),
-			text: 'This is my new note!',
-			date: '30/04/2021',
-		},
-	]);
-
-	const [searchText, setSearchText] = useState('');
-
-	const [darkMode, setDarkMode] = useState(false);
+	const [notes, setNotes] = useState([])
+	const [darkMode, setDarkMode] = useState(false)
+	const api = process.env.REACT_APP_API || 'http://localhost:3001'
 
 	useEffect(() => {
-		const savedNotes = JSON.parse(
-			localStorage.getItem('react-notes-app-data')
-		);
+		fetchAll()
+	}, [])
 
-		if (savedNotes) {
-			setNotes(savedNotes);
+	useEffect(() => {
+		console.log('should force update')
+	}, [notes])
+
+	const fetchAll = () => {
+		fetch(`${api}/notes`)
+			.then(res => res.json())
+			.then(res => setNotes(res.notes))
 		}
-	}, []);
-
-	useEffect(() => {
-		localStorage.setItem(
-			'react-notes-app-data',
-			JSON.stringify(notes)
-		);
-	}, [notes]);
 
 	const addNote = (text) => {
-		const date = new Date();
-		const newNote = {
-			id: nanoid(),
-			text: text,
-			date: date.toLocaleDateString(),
-		};
-		const newNotes = [...notes, newNote];
-		setNotes(newNotes);
-	};
+		const newNote = { text }
+		fetch(`${api}/note`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newNote)
+    })
+    	.then(res => res.json())
+    	.then(res => setNotes([...notes, res.newNote]))
+	}
+
+	const updateNote = (id, text) => {
+		fetch(`${api}/note`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ id, text })
+		})
+			.then(res => res.json())
+			.then(res => setNotes(notes.map(note => 
+				note.id === res.updatedNote.id ? res.updatedNote : note
+			)))
+	}
 
 	const deleteNote = (id) => {
-		const newNotes = notes.filter((note) => note.id !== id);
-		setNotes(newNotes);
-	};
+		fetch(`${api}/note`, {
+			method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+		})
+			.then(res => setNotes(notes.filter(note => note.id !== id)))
+	}
+
+	const searchNotes = (searchKey) => {
+		fetch(`${api}/notes/search/${searchKey}`, {
+			method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+		})
+			.then(res => res.json())
+			.then(res => setNotes(res.notes))
+	}
+
+	const deleteAllNotes = () => {
+		fetch(`${api}/notes`, {
+			method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+		})
+			.then(res => setNotes([]))
+	}
 
 	return (
 		<div className={`${darkMode && 'dark-mode'}`}>
 			<div className='container'>
 				<Header handleToggleDarkMode={setDarkMode} />
-				<Search handleSearchNote={setSearchText} />
+				<Search handleSearchNote={searchNotes} />
+				<button onClick={deleteAllNotes} className='bulk-delete'>
+					<MdDeleteForever
+						className='delete-icon'
+						style={{ marginBottom: '-3px', marginRight: '5px' }}
+					/>
+					Delete All Notes
+				</button>
 				<NotesList
-					notes={notes.filter((note) =>
-						note.text.toLowerCase().includes(searchText)
-					)}
+					notes={notes}
 					handleAddNote={addNote}
 					handleDeleteNote={deleteNote}
+					handleUpdateNote={updateNote}
 				/>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default App;
+export default App

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Header = ({ handleToggleDarkMode }) => {
 	return (
@@ -15,7 +15,7 @@ const Header = ({ handleToggleDarkMode }) => {
 				Toggle Mode
 			</button>
 		</div>
-	);
-};
+	)
+}
 
-export default Header;
+export default Header
