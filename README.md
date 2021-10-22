@@ -1,5 +1,9 @@
 # CSBC1010 Assigment 3 Client App - Notes
 
+```diff
+- Important: you do not need to modify anything in this repo.
+```
+
 This is the Presentation Tier for a simple Notes app. Built in React, where users can:
 1. View all notes with notes’ content, creation date and last modified date,
 2. Create a new note,
@@ -9,7 +13,6 @@ This is the Presentation Tier for a simple Notes app. Built in React, where user
 6. Bulk delete all existing notes
 
 
-#### Important: you should not modify anything in this repo.
 
 ### Steps to setup:
 
