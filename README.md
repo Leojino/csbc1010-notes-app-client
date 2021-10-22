@@ -40,6 +40,7 @@ npm start
 
 ### Dependencies 
 - [Node v14+](https://nodejs.org/en/)
+- [npm v6+](https://www.npmjs.com/)
 
 ### Related Project
 - [CSBC1010 Assigment 3 Server App - Notes](https://github.com/vivienfan/csbc1010-notes-app-server)
