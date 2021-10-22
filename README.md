@@ -4,7 +4,7 @@
 - Important: you do not need to modify anything in this repo.
 ```
 
-This is the Presentation Tier for a simple Notes app. Built in React, where users can:
+This is the Presentation Tier for a simple Notes app. Built in [React,js](https://reactjs.org/), where users can:
 1. View all notes with notes’ content, creation date and last modified date,
 2. Create a new note,
 3. Update an existing note,
@@ -39,7 +39,7 @@ npm start
 
 
 ### Dependencies 
-- Node v14+
+- [Node v14+](https://nodejs.org/en/)
 
 ### Related Project
 - [CSBC1010 Assigment 3 Server App - Notes](https://github.com/vivienfan/csbc1010-notes-app-server)
