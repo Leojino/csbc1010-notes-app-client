@@ -18,8 +18,7 @@ This is the Presentation Tier for a simple Notes app. Built in [React,js](https:
 
 1. Clone this repo
 ```bash
-git clone git@github.com:vivienfan/csbc1010-notes-app-client.git
-
+git clone https://github.com/vivienfan/csbc1010-notes-app-client.git
 ```
 
 2. Install dependencies
